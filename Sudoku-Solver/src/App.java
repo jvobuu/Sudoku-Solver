@@ -17,6 +17,8 @@ public class App {
             {0,6,5,0,7,0,0,1,0},
         };
 
+        printBoard(board);
+
         if (solveBoard(board)){
             System.out.println("Solved Successfully");
         } else {
@@ -29,8 +31,14 @@ public class App {
     // Method to print board
     private static void printBoard(int[][] board){
         for (int row = 0; row < gridSize; row++){
+            if (row % 3 == 0 && row != 0){
+                System.out.println("---------------------");
+            }
             for (int column = 0; column < gridSize; column++){
-                System.out.print(board[row][column]);
+                if (column % 3 == 0  && column != 0){
+                    System.out.print("| ");
+                }
+                System.out.print(board[row][column] + " ");
             }
             System.out.println();
         }
@@ -86,9 +94,13 @@ public class App {
         !isNumberInBox(board, number, row, column);
     }
 
+    // This method solves the board using recursion
     private static boolean solveBoard(int[][] board){
+        
+        // nested for loop to traverse through the whole board
         for (int row = 0; row < gridSize; row++){
             for (int column = 0; column < gridSize; column++){
+                // attemps to check valid placements when it stumbles upon a 0 (empty square)
                 if (board[row][column] == 0){
                     for (int numberToTry = 1; numberToTry <= gridSize; numberToTry++){
                         if (isValidPlacement(board, numberToTry, row, column)){
